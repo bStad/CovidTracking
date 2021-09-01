@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <title>Covid warning tool UniFR</title>
+</head>
+<body>
+    <a href="/"><h1>Coronavirus warning tool UniFR</h1></a>
+    <h2>Add a course manually</h2>
+
+    <script>
+        // Function used before submit to find ID from name
+        function setProfessorID(){
+            var valid = false;
+            // get the currently selected professor name
+            var selectedName = document.getElementById("professorName").value;
+
+            // go through all the available people and check if the name matches
+            peopleData.forEach(person => {
+                if(person[0] == selectedName){
+                    // name matches, so we set the ID in the hidden id field for the submit process
+                    document.getElementById("professorID").setAttribute("value", person[1]); //set corresponding ID
+                    valid = true;
+                }
+            });
+
+            if(valid) {
+                document.getElementById("courseForm").submit();
+            }
+            else {
+                alert("Incorrect teacher name. Try selecting from the list, or adding the teacher on the website first.");
+                return;
+            }
+        }
+    </script>
+
+    <form id="courseForm" action="/addCourseData" method="POST" onsubmit="event.preventDefault(); setProfessorID();">
+        <label for="courseName">Name of your course : </label> 
+        <input type="text" id="courseName" name="cn" minlength="5" maxlength="100" size="85">
+
+        <br/><br/>    
+    
+        <label for="professorID">The professor of the course : </label>
+        <input type="text" list="people" id="professorName"/>
+        <datalist id="people"></datalist>
+
+        <input type="hidden" list="IDs" name="pi" id="professorID"/>
+        <datalist id="IDs"></datalist>
+
+        <br/><br/>
+
+        <input type="submit" value="Submit"/>
+    </form>
+
+    <!-- Script that fetches the people data, so we can simply search & select the professor-->
+    <script>
+        // Fetch data from server through /people page
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET", "/people", false);
+        xmlHttp.send(null);
+
+        // Json parse to get an usable array out of the response
+        var rawData = JSON.parse(xmlHttp.responseText);
+        
+        // Split data to have names on one side, IDs on the other
+        var peopleData = [];
+        rawData.People.forEach(element => {
+            peopleData.push(element.split(" : "));
+        });
+
+        // Get handles on the datalists we will need to populate
+        var namesDataList = document.getElementById("people");
+        var IDsDataList = document.getElementById("IDs");
+
+        // For every person, append new child to both datalistss
+        peopleData.forEach(function(person) {
+            //Setting the name in the selector
+            var option = document.createElement("option");
+            option.value = person[0];
+            namesDataList.appendChild(option);
+            //Setting the ID in the hidden field that will be used for the actual submit
+            var optionID = document.createElement("option");
+            optionID.value = person[1];
+            IDsDataList.appendChild(optionID);
+        });
+
+    </script>
+
+<button id="back-button" type="button" onclick="location.href='/'">Back to menu</button>
+
+</body>
+</html>
