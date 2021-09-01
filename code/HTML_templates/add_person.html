@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/main.css">
+
+    <title>Covid warning tool UniFR</title>
+</head>
+<body>
+    <a href="/"><h1>Coronavirus warning tool UniFR</h1></a>
+    <h2>Add your contact details</h2>
+
+    <form action="/addPersonData" method="POST">
+        <p>Please fill in the following informations : </p> 
+
+        <label for="firstName">First Name : </label>
+        <input type="text" id="firstName" name="fn" required minlength="2" size="25">
+        <br><br>
+        <label for="lastName">Last Name : </label>
+        <input type="text" id="lastName" name ="ln" required minlength="2" size="25">
+        <br><br>
+        <label for="studentNumber">Student Number : </label>
+        <input type="text" id="studentNumber" name="sn" required minlength="8" maxlength="10" size="10">
+        <br><br>
+        <label for="email">E-mail : </label>
+        <input type="email" id="email" name="em" required minlength="5" size="35">
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+    
+    <button id="back-button" type="button" onclick="location.href='/'">Back to menu</button>
+
+</body>
+</html>

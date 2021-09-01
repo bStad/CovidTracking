@@ -1,0 +1,69 @@
+/* Main css file. Handles the styling for the website */
+
+/* List of links on the side of the page */
+ul{
+    padding-inline-start: 20px;
+}
+/* Index table (containing links left and text right) */
+td{
+    padding: 0 25px 0 25px;
+}
+
+/* Reduce some of the spacing if we are on a small screen. */
+@media screen and (max-width: 540px) {
+    /* List of links on the side of the page */
+    ul{
+        padding-inline-start: 8px;
+    }
+    /* Index table (containing links left and text right) */
+    td{
+        padding: 0 10px 0 10px;
+    }
+}
+
+/* Unifr logo */
+img{
+    position: absolute;
+}
+
+#menu-title{
+    text-align: center;
+}
+
+/* For the title-link */
+a:visited h1{
+    color: black;
+}
+a:link h1{
+    color: black;
+}
+a:active h1{
+    color: black;
+}
+a h1{
+    text-decoration: underline;
+    text-decoration-color: black;
+}
+
+li{
+    padding-bottom: 8px;
+}
+
+/* Back button */
+#back-button{
+    cursor: pointer;
+    margin: 100px 0 0 0;
+}
+
+/* Various text elements */
+h1 {
+    font-size: xx-large;
+}
+
+h2 {
+    font-size: x-large;
+}
+
+li, p, label, span {
+    font-size: large;
+}
